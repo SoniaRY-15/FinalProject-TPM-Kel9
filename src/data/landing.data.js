@@ -144,7 +144,7 @@ const landingData = {
   footer: {
     text: "Powered and Organized by [PLACEHOLDER]",
     links: {
-      privacyPolicy: "https://uhhhprivacything", //we dont need to make these pages, do we??
+      privacyPolicy: "https://uhhhprivacything", //we dont need to make these pages, do we?
       termsOfService: "https://tos",
     },
   },
