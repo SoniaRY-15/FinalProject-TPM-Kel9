@@ -6,6 +6,7 @@ const landingController = require("../controllers/landing.controller");
 GET /api/landing
 Returns all data needed for the landing page.
 */
+
 router.get("/landing", landingController.getLanding);
 
 /*
