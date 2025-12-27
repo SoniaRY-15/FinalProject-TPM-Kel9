@@ -29,7 +29,7 @@ const landingData = {
   },
 
   about: {
-    description: "Hackaton technoscape 2025 dummy test.", //change as needed
+    description: "Hackaton technoscape 2025.", //change as needed
     guidebook: {
       title: "Hackathon 2025 Guidebook",
       pdfUrl: "https://placeholderPDF", //change as needed, maybe acrually make  a pdf? see later
@@ -88,41 +88,41 @@ const landingData = {
     platinum: [
       {
         name: "[placeholder1]",
-        logoUrl: "https://placehold.co/300x100?text=Platinum+1",
+        logoUrl: "https://placeholderpic",
       }, //ask what logo is used?? --> change later
       {
         name: "[placeholder2]",
-        logoUrl: "https://placehold.co/300x100?text=Platinum+2",
+        logoUrl: "https://placeholderpic",
       },
     ],
     gold: [
       {
         name: "[placeholder3]",
-        logoUrl: "https://placehold.co/250x80?text=Gold+1",
+        logoUrl: "https://placeholderpic",
       },
       {
         name: "[placeholder4]",
-        logoUrl: "https://placehold.co/250x80?text=Gold+2",
+        logoUrl: "https://placeholderpic",
       },
     ],
     silver: [
       {
         name: "[placeholder5]",
-        logoUrl: "https://placehold.co/200x60?text=Silver+1",
+        logoUrl: "https://placeholderpic",
       },
       {
         name: "[placeholder6]",
-        logoUrl: "https://placehold.co/200x60?text=Silver+2",
+        logoUrl: "https://placeholderpic",
       },
     ],
     mediaPartner: [
       {
         name: "[placeholder7]",
-        logoUrl: "https://placehold.co/180x50?text=Media+1",
+        logoUrl: "https://placeholderpic",
       },
       {
         name: "[placeholder8]",
-        logoUrl: "https://placehold.co/180x50?text=Media+2",
+        logoUrl: "https://placeholderpic",
       },
     ],
   },
@@ -144,8 +144,8 @@ const landingData = {
   footer: {
     text: "Powered and Organized by [PLACEHOLDER]",
     links: {
-      privacyPolicy: "https://example.com/privacy", //we dont need to make these pages, do we??
-      termsOfService: "https://example.com/terms",
+      privacyPolicy: "https://uhhhprivacything", //we dont need to make these pages, do we??
+      termsOfService: "https://tos",
     },
   },
 };
