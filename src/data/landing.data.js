@@ -10,7 +10,7 @@ const landingData = {
     menu: [
       { name: "Home", anchor: "#home" },
       { name: "Champion Prizes", anchor: "#prizes" },
-      { name: "Mentor & Jury", anchor: "#mentors-jury" },
+      { name: "Mentor & Jury", anchor: "#mentors-jury" }, //kalau ga mau pakai, hapus aja
       { name: "About", anchor: "#about" },
       { name: "FAQ", anchor: "#faq" },
       { name: "Timeline", anchor: "#timeline" },
