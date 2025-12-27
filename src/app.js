@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(corsMiddleware);
-app.use(express.json()); // parse JSON bodies
+app.use(express.json()); 
 
 // Health-check
 app.get("/api/health", (req, res) => {
