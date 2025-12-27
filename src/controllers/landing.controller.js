@@ -23,6 +23,7 @@ POST /api/contact
 Validates incoming contact form metadata and simulates sending an email.
 Expected body: { name, email, subject, message }
 */
+
 async function postContact(req, res, next) {
   try {
     const { name, email, subject, message } = req.body || {};
