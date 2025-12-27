@@ -1,4 +1,4 @@
-// Centralized error handling middleware.
+// Centralized error handling stuff
 
 function errorHandler(err, req, res, next) {
   console.error("Unhandled error:", err && err.stack ? err.stack : err);
