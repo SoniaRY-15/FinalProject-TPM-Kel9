@@ -1,9 +1,9 @@
-# FinalProject-TPM-Kel9 — Landing page only so far (back-end)
+# FinalProject-TPM-Kel9 — Landing page (back-end)
 
 Quick start
 ```bash
 git clone https://github.com/SoniaRY-15/FinalProject-TPM-Kel9.git
-cd FinalProject-TPM-Kel9
+cd FinalProject-TPM-Kel9/backend
 npm install
 npm run dev
 # open:
@@ -18,3 +18,15 @@ Config
 - PORT (optional, default 3000)
 
 # Text me your email or username to be added as a collaborator 👍
+
+# Ini bagian FE
+
+Quick start
+```bash
+git clone https://github.com/SoniaRY-15/FinalProject-TPM-Kel9.git
+cd FinalProject-TPM-Kel9/frontend
+npm install
+npm run dev
+# open:
+# http://localhost:5173
+```
