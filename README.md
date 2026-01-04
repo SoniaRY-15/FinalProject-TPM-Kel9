@@ -15,9 +15,9 @@ npm run dev
 API
 - GET /api/landing — returns JSON used by the landing page
 - POST /api/contact — receives JSON { "name", "email", "message" } and returns status 200/201
-- POST /api/team/register
-- POST /api/team/login
-- POST /api/leader
+- POST /api/team/register (with validation)
+- POST /api/team/login ((with validation)
+- POST /api/leader (bagian create leader/form leader dan with validation)
 - GET /images/cv/:filename
 - GET /images/flazz/:filename
 - GET /images/idcard/:filename
@@ -48,6 +48,7 @@ Body (form-data):
 fullName (text)
 
 ```bash
+fullname (text)
 email (text)
 whatsapp (text)
 lineId (text)
@@ -74,4 +75,5 @@ npm run dev
 # open:
 # http://localhost:5173
 ```
+
 
