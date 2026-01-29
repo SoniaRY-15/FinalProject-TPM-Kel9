@@ -1,10 +1,11 @@
 const cors = require("cors");
 
+const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "*",
-  methods: ["GET", "POST", "OPTIONS"],
+  origin: allowedOrigin,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 204,
 };
 
 module.exports = cors(corsOptions);
