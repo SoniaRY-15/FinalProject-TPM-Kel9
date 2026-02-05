@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Stepper from "./Stepper";
 import { API_BASE } from "../lib/apiBase";
 
-export default function Stage1({ onRegistered }) {
+export default function Stage1() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [type, setType] = useState("NON_BINUSIAN");
@@ -15,6 +17,7 @@ export default function Stage1({ onRegistered }) {
 
     setLoading(true);
     setError("");
+
     try {
       const res = await fetch(`${API_BASE}/api/team/register`, {
         method: "POST",
@@ -24,19 +27,15 @@ export default function Stage1({ onRegistered }) {
 
       const body = await res.json();
       if (!res.ok) {
-        setError(
-          body.message ||
-            (body.errors && body.errors.join(", ")) ||
-            "Registration failed",
-        );
+        setError(body.message || (body.errors && body.errors.join(", ")) || "Registration failed" );
         setLoading(false);
         return;
       }
 
-      const token = body.data.token;
-      const teamId = body.data.teamId;
-      // pass token, teamId, and selected type up to App
-      onRegistered(token, teamId, type);
+      localStorage.setItem("token", body.data.token);
+      localStorage.setItem("teamId", body.data.teamId);
+      localStorage.setItem("teamType", type);
+      navigate("/register/stage2");
     } catch (err) {
       setError(err.message || "Network error");
     } finally {
@@ -76,6 +75,7 @@ export default function Stage1({ onRegistered }) {
               <option value="NON_BINUSIAN">NON_BINUSIAN</option>
             </select>
           </div>
+
           {error && (
             <div style={{ color: "salmon", marginTop: 8 }}>{error}</div>
           )}
