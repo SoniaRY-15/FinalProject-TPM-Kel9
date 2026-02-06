@@ -1,27 +1,21 @@
-// In-memory dummy data for the Landing Page API. (change as needed)
-
 const landingData = {
   navigation: {
     logo: {
       alt: "Hackathon 2025 Logo",
-      // Dummy logo URL
       url: "https://sumnsumn?",
     },
     menu: [
       { name: "Home", anchor: "#home" },
       { name: "Champion Prizes", anchor: "#prizes" },
-      { name: "Mentor & Jury", anchor: "#mentors-jury" }, //kalau ga mau pakai, hapus aja
       { name: "About", anchor: "#about" },
       { name: "FAQ", anchor: "#faq" },
       { name: "Timeline", anchor: "#timeline" },
     ],
-    // Redirect to login page
-    loginUrl: "https://hackathon.finpro.com/login", //again, just a placeholder, change as needed
   },
 
   hero: {
-    eventName: "Hackathon 2025",
-    eventTheme: "Innovate for a Sustainable Future", // change as needed
+    eventName: "Hackathon '25",
+    eventTheme: "Innovating for a Sustainable Future",
     recapMedia: {
       type: "video",
       url: "https://placeholderlmao",
@@ -29,101 +23,114 @@ const landingData = {
   },
 
   about: {
-    description: "Hackaton technoscape 2025.", //change as needed
+    description:
+      "Hackathon merupakan sebuah kegiatan kolaboratif yang mempertemukan individu atau tim dalam waktu terbatas untuk merancang dan mengembangkan solusi inovatif berbasis teknologi terhadap suatu permasalahan tertentu. Melalui hackathon, peserta tidak hanya dituntut memiliki kemampuan teknis, tetapi juga kemampuan berpikir kritis, bekerja sama lintas bidang, serta menyampaikan ide secara terstruktur dalam bentuk prototipe atau konsep solusi.",
     guidebook: {
       title: "Hackathon 2025 Guidebook",
-      pdfUrl: "https://placeholderPDF", //change as needed, maybe acrually make  a pdf? see later
+      pdfUrl: "https://bit.ly/plcholderpdfff",
     },
   },
 
   championPrizes: {
     prizes: [
       {
-        position: "Juara 1",
+        position: "2nd",
+        rank: "2nd",
+        placeLabel: "Place",
+        rewardMoney: "Rp 15.000.000",
+        benefits: ["Merchandise", "Certificate"],
+      },
+      {
+        position: "1st",
+        rank: "1st",
+        placeLabel: "Place",
+        rewardMoney: "Rp 20.000.000",
+        benefits: ["Merchandise", "Certificate"],
+      },
+      {
+        position: "3rd",
+        rank: "3rd",
+        placeLabel: "Place",
         rewardMoney: "Rp 10.000.000",
-        benefits: ["Merchandise", "Sertifikat"],
-      },
-      {
-        position: "Juara 2",
-        rewardMoney: "Rp 6.000.000",
-        benefits: ["Merchandise", "Sertifikat"],
-      },
-      {
-        position: "Juara 3",
-        rewardMoney: "Rp 3.000.000",
-        benefits: ["Merchandise", "Sertifikat"],
+        benefits: ["Merchandise", "Certificate"],
       },
     ],
   },
 
   faq: {
-    //search faq and answer examples later
     faqList: [
       {
-        question: "question 1?",
-        answer: "answer 1.",
+        question: "Apa itu Hackathon?",
+        answer:
+          "Hackathon adalah ajang kompetisi intensif dan kolaboratif, biasanya berlangsung 24-48 jam, di mana tim (terdiri dari developer, desainer, dan inovator) berlomba menciptakan prototipe produk atau solusi teknologi fungsional berdasarkan tema tertentu",
       },
       {
-        question: "question 2?",
-        answer: "answer 2.",
+        question: "Siapa yang dapat berpartisipasi dalam Hackathon?",
+        answer:
+          "Peserta dapat berupa mahasiswa aktif dari universitas manapun di Indonesia, baik dari program sarjana maupun pascasarjana.",
       },
       {
-        question: "question 3?",
-        answer: "answer 3.",
+        question: "Bagaimana pembentukan tim dilakukan?",
+        answer:
+          "Tim dapat dibentuk secara mandiri oleh peserta. Setiap tim harus terdiri dari 2-4 orang peserta.",
+      },
+      {
+        question: "Apakah ada biaya pendaftaran untuk mengikuti Hackathon?",
+        answer: "Ada biaya pendaftaran untuk mengikuti Hackathon.",
       },
     ],
   },
 
   timeline: {
-    openRegistration: "2025-04-30",
-    closeRegistration: "2025-05-22",
-    technicalMeeting: {
-      date: "2025-05-27",
-      meetingLink: "https://placeholderlink", //uhhh change later
-    },
-    competitionDay: "2025-06-01",
+    events: [
+      {
+        date: "March 1",
+        year: "2025",
+        title: "Open Registration",
+        description:
+          "Registration officially opens. Participants can form teams and secure their spot in the hackathon.",
+      },
+      {
+        date: "March 20",
+        year: "2025",
+        title: "Close Registration",
+        description:
+          "Last day to register. All participants and teams must be confirmed before this date.",
+      },
+      {
+        date: "March 23",
+        year: "2025",
+        title: "Technical Meeting",
+        description:
+          "An official briefing covering rules, judging criteria, technical guidelines, and Q&A.",
+        meetingLink: "To be announced",
+      },
+      {
+        date: "April 4",
+        year: "2025",
+        title: "Competition Day",
+        description:
+          "The main event. Participants build, test, and present their solutions to the judges.",
+      },
+    ],
   },
 
   sponsors: {
-    platinum: [
-      {
-        name: "[placeholder1]",
-        logoUrl: "https://placeholderpic",
-      }, //ask what logo is used?? --> change later
-      {
-        name: "[placeholder2]",
-        logoUrl: "https://placeholderpic",
-      },
-    ],
-    gold: [
-      {
-        name: "[placeholder3]",
-        logoUrl: "https://placeholderpic",
-      },
-      {
-        name: "[placeholder4]",
-        logoUrl: "https://placeholderpic",
-      },
-    ],
-    silver: [
-      {
-        name: "[placeholder5]",
-        logoUrl: "https://placeholderpic",
-      },
-      {
-        name: "[placeholder6]",
-        logoUrl: "https://placeholderpic",
-      },
-    ],
-    mediaPartner: [
-      {
-        name: "[placeholder7]",
-        logoUrl: "https://placeholderpic",
-      },
-      {
-        name: "[placeholder8]",
-        logoUrl: "https://placeholderpic",
-      },
+    list: [
+      { name: "Microsoft", logo: "microsoft.png" },
+      { name: "Tiket.com", logo: "tiketcom.png" },
+      { name: "Intel", logo: "intel.png" },
+      { name: "Gojek", logo: "gojek.png" },
+      { name: "Tokopedia", logo: "tokopedia.png" },
+      { name: "Shopee", logo: "shopee.png" },
+      { name: "Logitech", logo: "logitech.png" },
+      { name: "Fave Solution", logo: "favesolution.png" },
+      { name: "Kompas", logo: "kompas.webp" },
+      { name: "Dicoding", logo: "dicoding.png" },
+      { name: "Astro", logo: "astro.png" },
+      { name: "Axioo", logo: "axioo.png" },
+      { name: "Dell", logo: "dell.png" },
+      { name: "SanDisk", logo: "sandisk.png" },
     ],
   },
 
@@ -142,10 +149,10 @@ const landingData = {
   },
 
   footer: {
-    text: "Powered and Organized by [PLACEHOLDER]",
+    text: "Powered and Organized by Bina Nusantara Computer Club",
     links: {
-      privacyPolicy: "https://uhhhprivacything", //we dont need to make these pages, do we?
-      termsOfService: "https://tos",
+      privacyPolicy: "/privacy",
+      termsOfService: "/terms",
     },
   },
 };

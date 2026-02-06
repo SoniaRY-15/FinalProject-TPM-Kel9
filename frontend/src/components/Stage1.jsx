@@ -11,9 +11,31 @@ export default function Stage1() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Password requirements checker
+  const checkPasswordStrength = (pwd) => {
+    return {
+      hasLower: /[a-z]/.test(pwd),
+      hasUpper: /[A-Z]/.test(pwd),
+      hasNumber: /\d/.test(pwd),
+      hasSymbol: /[^A-Za-z\d]/.test(pwd),
+      hasMinLength: pwd.length >= 8,
+    };
+  };
+
+  const passwordRequirements = checkPasswordStrength(password);
+  const passwordValid = Object.values(passwordRequirements).every((v) => v);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !password || !type) return;
+    if (!name || !password || !type) {
+      setError("Semua field harus diisi");
+      return;
+    }
+
+    if (!passwordValid) {
+      setError("Password tidak memenuhi syarat");
+      return;
+    }
 
     setLoading(true);
     setError("");
@@ -27,7 +49,11 @@ export default function Stage1() {
 
       const body = await res.json();
       if (!res.ok) {
-        setError(body.message || (body.errors && body.errors.join(", ")) || "Registration failed" );
+        setError(
+          body.message ||
+            (body.errors && body.errors.join(", ")) ||
+            "Registration failed",
+        );
         setLoading(false);
         return;
       }
@@ -51,6 +77,7 @@ export default function Stage1() {
             <em>Registration Form</em>
           </h1>
           <Stepper step={1} />
+
           <div className="input-group">
             <input
               value={name}
@@ -60,6 +87,7 @@ export default function Stage1() {
               required
             />
           </div>
+
           <div className="input-group">
             <input
               value={password}
@@ -68,7 +96,51 @@ export default function Stage1() {
               placeholder="Password"
               required
             />
+
+            {/* Password Requirements Indicator */}
+            {password && (
+              <div style={{ marginTop: "12px", fontSize: "12px" }}>
+                <div
+                  style={{
+                    color: passwordRequirements.hasMinLength
+                      ? "#00FF59"
+                      : "#999",
+                  }}
+                >
+                  ✓ Minimal 8 karakter
+                </div>
+                <div
+                  style={{
+                    color: passwordRequirements.hasUpper ? "#00FF59" : "#999",
+                  }}
+                >
+                  ✓ Minimal 1 huruf besar (A-Z)
+                </div>
+                <div
+                  style={{
+                    color: passwordRequirements.hasLower ? "#00FF59" : "#999",
+                  }}
+                >
+                  ✓ Minimal 1 huruf kecil (a-z)
+                </div>
+                <div
+                  style={{
+                    color: passwordRequirements.hasNumber ? "#00FF59" : "#999",
+                  }}
+                >
+                  ✓ Minimal 1 angka (0-9)
+                </div>
+                <div
+                  style={{
+                    color: passwordRequirements.hasSymbol ? "#00FF59" : "#999",
+                  }}
+                >
+                  ✓ Minimal 1 simbol (!@#$%^&* etc)
+                </div>
+              </div>
+            )}
           </div>
+
           <div className="input-group">
             <select value={type} onChange={(e) => setType(e.target.value)}>
               <option value="BINUSIAN">BINUSIAN</option>
@@ -79,8 +151,13 @@ export default function Stage1() {
           {error && (
             <div style={{ color: "salmon", marginTop: 8 }}>{error}</div>
           )}
+
           <div className="button-wrapper">
-            <button className="continue-btn" type="submit" disabled={loading}>
+            <button
+              className="continue-btn"
+              type="submit"
+              disabled={loading || !passwordValid || !name || !type}
+            >
               {loading ? "Registering..." : "Continue"}
             </button>
           </div>

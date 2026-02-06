@@ -6,6 +6,8 @@ const landingRoutes = require("./routes/landing.routes");
 const errorHandler = require("./middlewares/errorHandler");
 const teamRoutes = require("./routes/team.routes.js");
 const leaderRoutes = require("./routes/leader.routes.js");
+const dashboardRoutes = require("./routes/dashboard.routes.js");
+const adminRoutes = require("./routes/admin.routes.js");
 const app = express();
 
 // Middleware
@@ -13,6 +15,8 @@ app.use(corsMiddleware);
 app.use(express.json());
 app.use("/api/team", teamRoutes);
 app.use("/api/leader", leaderRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Health-check
 app.get("/api/health", (req, res) => {
@@ -21,6 +25,9 @@ app.get("/api/health", (req, res) => {
 
 // Mount landing routes under /api
 app.use("/api", landingRoutes);
+
+// Serve images folder (untuk view/download file)
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Serve built frontend (if present) and SPA fallback
 // This avoids using a '*' route pattern that path-to-regexp may reject.

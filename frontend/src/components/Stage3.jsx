@@ -9,6 +9,7 @@ export default function Stage3() {
   const token = localStorage.getItem("token");
   const teamType = localStorage.getItem("teamType");
   const leaderData = JSON.parse(localStorage.getItem("leaderData") || "{}");
+
   const [cvFile, setCvFile] = useState(null);
   const [cardFile, setCardFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,8 +17,24 @@ export default function Stage3() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!token) {
       setError("Missing team token. Please restart registration.");
+      return;
+    }
+
+    if (!cvFile) {
+      setError("CV wajib diupload");
+      return;
+    }
+
+    if (teamType === "BINUSIAN" && !cardFile) {
+      setError("Flazz Card wajib diupload untuk BINUSIAN");
+      return;
+    }
+
+    if (teamType === "NON_BINUSIAN" && !cardFile) {
+      setError("ID Card wajib diupload untuk NON BINUSIAN");
       return;
     }
 
@@ -26,11 +43,21 @@ export default function Stage3() {
 
     try {
       const form = new FormData();
-      Object.entries(leaderData).forEach(([k, v]) => form.append(k, v));
+
+      // Add leader data
+      Object.entries(leaderData).forEach(([k, v]) => {
+        form.append(k, v);
+      });
+
+      // Add files
       form.append("cv", cvFile);
+
       if (cardFile) {
-        if (teamType === "BINUSIAN") form.append("flazz", cardFile);
-        else form.append("idCard", cardFile);
+        if (teamType === "BINUSIAN") {
+          form.append("flazz", cardFile);
+        } else {
+          form.append("idCard", cardFile);
+        }
       }
 
       const res = await fetch(`${API_BASE}/api/leader`, {
@@ -39,10 +66,24 @@ export default function Stage3() {
         body: form,
       });
 
-      if (!res.ok) throw new Error("Upload failed");
+      const body = await res.json();
+
+      if (!res.ok) {
+        setError(body.message || "Upload failed");
+        setLoading(false);
+        return;
+      }
+
+      // Clear localStorage after successful registration
+      localStorage.removeItem("token");
+      localStorage.removeItem("teamId");
+      localStorage.removeItem("teamType");
+      localStorage.removeItem("leaderData");
+
       navigate("/register/complete");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Network error");
+      console.error("Upload error:", err);
     } finally {
       setLoading(false);
     }
@@ -52,12 +93,45 @@ export default function Stage3() {
     <div className="container form-step active">
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
-          <h1 className="form-title"><em>Upload Documents</em></h1>
+          <h1 className="form-title">
+            <em>Upload Documents</em>
+          </h1>
           <Stepper step={3} />
-          {error && <div style={{ color: "salmon" }}>{error}</div>}
-          <button className="continue-btn" disabled={loading}>
-            {loading ? "Uploading..." : "Upload"}
-          </button>
+
+          {error && (
+            <div style={{ color: "salmon", marginTop: 8, marginBottom: 16 }}>
+              {error}
+            </div>
+          )}
+
+          <UploadBox
+            title="Upload CV"
+            description="Drag or click to upload CV (PDF, JPG, PNG)"
+            onFileSelect={setCvFile}
+            selectedFile={cvFile}
+          />
+
+          {teamType === "BINUSIAN" ? (
+            <UploadBox
+              title="Upload Flazz Card"
+              description="Upload your Flazz Card (PDF, JPG, PNG)"
+              onFileSelect={setCardFile}
+              selectedFile={cardFile}
+            />
+          ) : (
+            <UploadBox
+              title="Upload ID Card"
+              description="Upload your ID Card (PDF, JPG, PNG)"
+              onFileSelect={setCardFile}
+              selectedFile={cardFile}
+            />
+          )}
+
+          <div className="button-wrapper">
+            <button className="continue-btn" type="submit" disabled={loading}>
+              {loading ? "Uploading..." : "Submit"}
+            </button>
+          </div>
         </div>
       </form>
     </div>

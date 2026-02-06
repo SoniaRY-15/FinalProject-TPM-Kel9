@@ -19,6 +19,48 @@ function getLanding(req, res, next) {
 }
 
 /*
+GET /api/landing/:section
+Returns a specific section of the landing page data.
+Valid sections: hero, about, championPrizes, faq, timeline, sponsors, contact, socialMedia, footer, navigation
+*/
+
+function getLandingSection(req, res, next) {
+  try {
+    const { section } = req.params;
+
+    const validSections = [
+      "hero",
+      "about",
+      "championPrizes",
+      "faq",
+      "timeline",
+      "sponsors",
+      "contact",
+      "socialMedia",
+      "footer",
+      "navigation",
+    ];
+
+    if (!validSections.includes(section)) {
+      return fail(
+        res,
+        `Invalid section. Valid sections: ${validSections.join(", ")}`,
+        400,
+      );
+    }
+
+    const data = landingData[section];
+    if (!data) {
+      return fail(res, `Section '${section}' not found`, 404);
+    }
+
+    return success(res, data, `${section} data fetched successfully`, 200);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+/*
 POST /api/contact
 Validates incoming contact form metadata and simulates sending an email.
 Expected body: { name, email, subject, message }
@@ -68,5 +110,6 @@ async function postContact(req, res, next) {
 
 module.exports = {
   getLanding,
+  getLandingSection,
   postContact,
 };

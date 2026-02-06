@@ -1,20 +1,169 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { API_BASE } from "../lib/apiBase";
 
 export default function LandingPage({ onNavigateToRegister }) {
   const [expandedFaq, setExpandedFaq] = useState(null);
+  const [landingData, setLandingData] = useState(null);
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [contactError, setContactError] = useState("");
+  const [contactSuccess, setContactSuccess] = useState("");
+  const [contactLoading, setContactLoading] = useState(false);
+
+  // Fetch landing page data from backend
+  useEffect(() => {
+    const fetchLandingData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE}/api/landing`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Failed to fetch landing data");
+        }
+
+        setLandingData(result.data);
+        setError("");
+      } catch (err) {
+        console.error("Error fetching landing data:", err);
+        setError(err.message || "Failed to load landing page");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLandingData();
+  }, []);
+
   const toggleFaq = (index) => {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
+
+  const handleContactChange = (e) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+
+    // Client-side validation
+    if (
+      !contactForm.name ||
+      !contactForm.email ||
+      !contactForm.subject ||
+      !contactForm.message
+    ) {
+      setContactError("All fields are required");
+      return;
+    }
+
+    try {
+      setContactLoading(true);
+      setContactError("");
+      setContactSuccess("");
+
+      const response = await fetch(`${API_BASE}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contactForm),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to send message");
+      }
+
+      setContactSuccess("Message sent successfully!");
+      setContactForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      // Clear success message after 3 seconds
+      setTimeout(() => setContactSuccess(""), 3000);
+    } catch (err) {
+      console.error("Error sending contact form:", err);
+      setContactError(err.message || "Failed to send message");
+    } finally {
+      setContactLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="landing-page">
+        <div
+          style={{ textAlign: "center", padding: "100px 20px", color: "#fff" }}
+        >
+          <h2>Loading...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="landing-page">
+        <div
+          style={{
+            textAlign: "center",
+            padding: "100px 20px",
+            color: "#ff6b6b",
+          }}
+        >
+          <h2>Error</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!landingData) {
+    return (
+      <div className="landing-page">
+        <div
+          style={{ textAlign: "center", padding: "100px 20px", color: "#fff" }}
+        >
+          <h2>No data available</h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="landing-page">
       {/* Hero */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Hackathon <em className="em1">'</em>25</h1>
+          <h1 className="hero-title">
+            {landingData.hero?.eventName || "Hackathon '25"}{" "}
+            <em className="em1">'</em>
+          </h1>
           <div className="hero-tagline">
-            <p style={{marginLeft: "-35px"}}><em className="em1">"</em>Innovating for a</p>
-            <p>Sustainable Future<em className="em1">"</em></p>
+            <p style={{ marginLeft: "-35px" }}>
+              <em className="em1">"</em>
+              {landingData.hero?.eventTheme?.split(" Sustainable")[0] ||
+                "Innovating for a"}
+            </p>
+            <p>
+              Sustainable{" "}
+              {landingData.hero?.eventTheme?.split("Sustainable ")[1] ||
+                "Future"}
+              <em className="em1">"</em>
+            </p>
           </div>
         </div>
         <div className="hero-video">
@@ -26,37 +175,49 @@ export default function LandingPage({ onNavigateToRegister }) {
 
       {/* About */}
       <section className="about-section" id="about">
-        <h2 className="section-title" style={{fontSize: "30px"}}>About</h2>
-        <p className="about-text" style={{textAlign: "justify"}}>
-            Hackathon merupakan sebuah kegiatan kolaboratif yang mempertemukan individu atau tim dalam waktu terbatas untuk merancang dan mengembangkan solusi inovatif berbasis teknologi terhadap suatu permasalahan tertentu. Melalui hackathon, peserta tidak hanya dituntut memiliki kemampuan teknis, tetapi juga kemampuan berpikir kritis, bekerja sama lintas bidang, serta menyampaikan ide secara terstruktur dalam bentuk prototipe atau konsep solusi.
+        <h2 className="section-title" style={{ fontSize: "30px" }}>
+          About
+        </h2>
+        <p className="about-text" style={{ textAlign: "justify" }}>
+          {landingData.about?.description ||
+            "Hackathon merupakan sebuah kegiatan kolaboratif..."}
         </p>
-        <a href="#" className="download-link">Download Guidebook </a>
+        <a
+          href={landingData.about?.guidebook?.pdfUrl || "#"}
+          className="download-link"
+        >
+          Download Guidebook
+        </a>
       </section>
 
       {/* Prize */}
       <section className="prize-section" id="prizes">
         <h2 className="section-title">Champion Prize</h2>
         <div className="prize-cards">
-          <div className="prize-card second-place">
-            <div className="prize-number">2<sup>nd</sup></div>
-            <div className="prize-label">Place</div>
-            <div className="prize-amount">Rp 15.000.000</div>
-            <div className="prize-extras">Merchandise & Certificate</div>
-          </div>
-          
-          <div className="prize-card first-place">
-            <div className="prize-number">1<sup>st</sup></div>
-            <div className="prize-label">Place</div>
-            <div className="prize-amount">Rp 20.000.000</div>
-            <div className="prize-extras">Merchandise & Certificate</div>
-          </div>
-          
-          <div className="prize-card third-place">
-            <div className="prize-number">3<sup>rd</sup></div>
-            <div className="prize-label">Place</div>
-            <div className="prize-amount">Rp 10.000.000</div>
-            <div className="prize-extras">Merchandise & Certificate</div>
-          </div>
+          {landingData.championPrizes?.prizes?.map((prize, index) => (
+            <div
+              key={index}
+              className={`prize-card ${
+                prize.position === "1st"
+                  ? "first-place"
+                  : prize.position === "2nd"
+                    ? "second-place"
+                    : "third-place"
+              }`}
+            >
+              <div className="prize-number">
+                {prize.position?.split("")[0]}
+                {prize.position?.includes("st") && <sup>st</sup>}
+                {prize.position?.includes("nd") && <sup>nd</sup>}
+                {prize.position?.includes("rd") && <sup>rd</sup>}
+              </div>
+              <div className="prize-label">{prize.placeLabel || "Place"}</div>
+              <div className="prize-amount">{prize.rewardMoney}</div>
+              <div className="prize-extras">
+                {prize.benefits?.join(" & ") || "Merchandise & Certificate"}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -64,53 +225,21 @@ export default function LandingPage({ onNavigateToRegister }) {
       <section className="faq-section" id="faq">
         <h2 className="section-title">FAQ</h2>
         <div className="faq-grid">
-          <div className="faq-item" onClick={() => toggleFaq(0)}>
-            <div className="faq-question">
-              <span>Apa itu Hackathon?</span>
-              <span className="faq-arrow">&lt;</span>
-            </div>
-            {expandedFaq === 0 && (
-              <div className="faq-answer">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, dicta, nesciunt architecto exercitationem rerum alias atque, molestiae vero voluptate mollitia fugiat porro at non omnis quaerat fuga voluptates recusandae quas!
+          {landingData.faq?.faqList?.map((item, index) => (
+            <div
+              key={index}
+              className="faq-item"
+              onClick={() => toggleFaq(index)}
+            >
+              <div className="faq-question">
+                <span>{item.question}</span>
+                <span className="faq-arrow">&lt;</span>
               </div>
-            )}
-          </div>
-          
-          <div className="faq-item" onClick={() => toggleFaq(1)}>
-            <div className="faq-question">
-              <span>Siapa yang dapat berpartisipasi dalam Hackathon?</span>
-              <span className="faq-arrow">&lt;</span>
+              {expandedFaq === index && (
+                <div className="faq-answer">{item.answer}</div>
+              )}
             </div>
-            {expandedFaq === 1 && (
-              <div className="faq-answer">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi veritatis corrupti praesentium sapiente id tempora deleniti cum magni hic fugiat sequi, dolorem repudiandae laboriosam, esse ad fuga alias, provident tempore!
-              </div>
-            )}
-          </div>
-          
-          <div className="faq-item" onClick={() => toggleFaq(2)}>
-            <div className="faq-question">
-              <span>Bagaimana pembentukan tim dilakukan?</span>
-              <span className="faq-arrow">&lt;</span>
-            </div>
-            {expandedFaq === 2 && (
-              <div className="faq-answer">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus enim consequuntur magni mollitia maxime eveniet vel saepe ab iure dolore ut fugit corporis libero alias esse, consectetur dignissimos ad itaque?
-              </div>
-            )}
-          </div>
-          
-          <div className="faq-item" onClick={() => toggleFaq(3)}>
-            <div className="faq-question">
-              <span>Siapa yang dapat berpartisipasi dalam Hackathon?</span>
-              <span className="faq-arrow">&lt;</span>
-            </div>
-            {expandedFaq === 3 && (
-              <div className="faq-answer">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati dolor rem ex id quisquam autem recusandae placeat in eligendi, fugiat quasi eaque quas sunt repudiandae amet harum itaque dolore asperiores!
-              </div>
-            )}
-          </div>
+          ))}
         </div>
       </section>
 
@@ -118,116 +247,125 @@ export default function LandingPage({ onNavigateToRegister }) {
       <section className="timeline-section" id="timeline">
         <h2 className="section-title">Timeline</h2>
         <div className="timeline">
-          <div className="timeline-item">
-            <div className="timeline-date">
-              <div>March 1</div>
-              <div>2025</div>
+          {landingData.timeline?.events?.map((event, index) => (
+            <div key={index} className="timeline-item">
+              <div className="timeline-date">
+                <div>{event.date}</div>
+                <div>{event.year}</div>
+              </div>
+              <div className="timeline-dot"></div>
+              <div className="timeline-content">
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
+                {event.meetingLink && (
+                  <p className="timeline-note">
+                    <em>Meeting Link: {event.meetingLink}</em>
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <h3>Open Registration</h3>
-              <p>Registration officially opens. Participants can form teams and secure their spot in the hackathon.</p>
-            </div>
-          </div>
-          
-          <div className="timeline-item">
-            <div className="timeline-date">
-              <div>March 20</div>
-              <div>2025</div>
-            </div>
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <h3>Close Registration</h3>
-              <p>Last day to register. All participants and teams must be confirmed before this date.</p>
-            </div>
-          </div>
-          
-          <div className="timeline-item">
-            <div className="timeline-date">
-              <div>March 23</div>
-              <div>2025</div>
-            </div>
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <h3>Technical Meeting</h3>
-              <p>An official briefing covering rules, judging criteria, technical guidelines, and Q&A.</p>
-              <p className="timeline-note"><em>Meeting Link: To be announced</em></p>
-            </div>
-          </div>
-          
-          <div className="timeline-item">
-            <div className="timeline-date">
-              <div>April 4</div>
-              <div>2025</div>
-            </div>
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <h3>Competition Day</h3>
-              <p>The main event. Participants build, test, and present their solutions to the judges.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* Sponsor */}
       <section className="sponsor-section">
-        <h2 className="section-title" style={{display: "inline-block", padding: "0px", textDecoration: "underline solid 2px #00FF59"}}>Sponsor</h2>
+        <h2
+          className="section-title"
+          style={{
+            display: "inline-block",
+            padding: "0px",
+            textDecoration: "underline solid 2px #00FF59",
+          }}
+        >
+          Sponsor
+        </h2>
         <div className="sponsor-scroll-wrapper">
           <div className="sponsor-logos">
-            <div className="sponsor-logo microsoft"></div>
-            <div className="sponsor-logo tiketcom"></div>
-            <div className="sponsor-logo intel"></div>
-            <div className="sponsor-logo gojek"></div>
-            <div className="sponsor-logo tokopedia"></div>
-            <div className="sponsor-logo shopee"></div>
-            <div className="sponsor-logo logitech"></div>
-            <div className="sponsor-logo favesolution"></div>
-            <div className="sponsor-logo kompas"></div>
-            <div className="sponsor-logo dicoding"></div>
-            <div className="sponsor-logo astro"></div>
-            <div className="sponsor-logo axioo"></div>
-            <div className="sponsor-logo dell"></div>
-            <div className="sponsor-logo sandisk"></div>
-
-            <div className="sponsor-logo microsoft"></div>
-            <div className="sponsor-logo tiketcom"></div>
-            <div className="sponsor-logo intel"></div>
-            <div className="sponsor-logo gojek"></div>
-            <div className="sponsor-logo tokopedia"></div>
-            <div className="sponsor-logo shopee"></div>
-            <div className="sponsor-logo logitech"></div>
-            <div className="sponsor-logo favesolution"></div>
-            <div className="sponsor-logo kompas"></div>
-            <div className="sponsor-logo dicoding"></div>
-            <div className="sponsor-logo astro"></div>
-            <div className="sponsor-logo axioo"></div>
-            <div className="sponsor-logo dell"></div>
-            <div className="sponsor-logo sandisk"></div>
+            {landingData.sponsors?.list?.map((sponsor, index) => (
+              <div
+                key={index}
+                className={`sponsor-logo ${sponsor.logo?.split(".")[0]}`}
+                title={sponsor.name}
+              ></div>
+            ))}
+            {/* Repeat for scroll effect */}
+            {landingData.sponsors?.list?.map((sponsor, index) => (
+              <div
+                key={`repeat-${index}`}
+                className={`sponsor-logo ${sponsor.logo?.split(".")[0]}`}
+                title={sponsor.name}
+              ></div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Contact */}
       <section className="contact-section">
-        <h2 className="section-title" style={{justifySelf: "start"}}>Contact Us</h2>
-        <form className="contact-form">
+        <h2 className="section-title" style={{ justifySelf: "start" }}>
+          Contact Us
+        </h2>
+        <form className="contact-form" onSubmit={handleContactSubmit}>
           <div className="form-row">
             <div className="form-group">
               <label>Name</label>
-              <input type="text" placeholder="Your Name" />
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                value={contactForm.name}
+                onChange={handleContactChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input type="email" placeholder="Your Email" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                value={contactForm.email}
+                onChange={handleContactChange}
+                required
+              />
             </div>
           </div>
           <div className="form-group">
             <label>Message</label>
-            <input type="text" placeholder="Subject" />
-            <textarea placeholder="Your Message" style={{height: "200px"}}></textarea>
+            <input
+              type="text"
+              name="subject"
+              placeholder="Subject"
+              value={contactForm.subject}
+              onChange={handleContactChange}
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Your Message"
+              value={contactForm.message}
+              onChange={handleContactChange}
+              style={{ height: "200px" }}
+              required
+            ></textarea>
           </div>
+          {contactError && (
+            <div style={{ color: "salmon", marginTop: 8 }}>{contactError}</div>
+          )}
+          {contactSuccess && (
+            <div style={{ color: "#00FF59", marginTop: 8 }}>
+              {contactSuccess}
+            </div>
+          )}
           <div className="form-submit">
-            <button type="submit" className="submit-btn">Button </button>
+            <button
+              type="submit"
+              className="submit-btn"
+              disabled={contactLoading}
+            >
+              {contactLoading ? "Sending..." : "Send"}
+            </button>
           </div>
         </form>
       </section>
@@ -236,20 +374,60 @@ export default function LandingPage({ onNavigateToRegister }) {
       <section className="social-section">
         <h3>Follow us on</h3>
         <div className="social-links">
-          <a href="#" className="social insta">@technoscapebncc</a>
-          <a href="#" className="social email">technoscape@bncc.net</a>
-          <a href="#" className="social x">@BNCC_Binus</a>
-          <a href="#" className="social facebook">Bina Nusantara Computer Club</a>
-          <a href="#" className="social linkedin">Bina Nusantara Computer Club</a>
+          <a
+            href={landingData.socialMedia?.instagram || "#"}
+            className="social insta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @technoscapebncc
+          </a>
+          <a
+            href={`mailto:${landingData.socialMedia?.email || "#"}`}
+            className="social email"
+          >
+            {landingData.socialMedia?.email || "technoscape@bncc.net"}
+          </a>
+          <a
+            href={landingData.socialMedia?.twitter || "#"}
+            className="social x"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @BNCC_Binus
+          </a>
+          <a
+            href={landingData.socialMedia?.facebook || "#"}
+            className="social facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Bina Nusantara Computer Club
+          </a>
+          <a
+            href={landingData.socialMedia?.linkedin || "#"}
+            className="social linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Bina Nusantara Computer Club
+          </a>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
-          <a href="#">Privacy Policy</a>
-          <p>Powered and Organized by Bina Nusantara Computer Club</p>
-          <a href="#">Terms of Service</a>
+          <a href={landingData.footer?.links?.privacyPolicy || "#"}>
+            Privacy Policy
+          </a>
+          <p>
+            {landingData.footer?.text ||
+              "Powered and Organized by Bina Nusantara Computer Club"}
+          </p>
+          <a href={landingData.footer?.links?.termsOfService || "#"}>
+            Terms of Service
+          </a>
         </div>
       </footer>
     </div>
