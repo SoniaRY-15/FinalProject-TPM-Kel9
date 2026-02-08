@@ -1,4 +1,5 @@
 import successIcon from "../assets/registration-completed.svg";
+import { Link } from 'react-router-dom';
 
 export default function RegistrationComplete() {
   return (
@@ -14,6 +15,7 @@ export default function RegistrationComplete() {
         <p style={{ opacity: 0.8 }}>
           Your registration has been successfully submitted.
         </p>
+        <Link to="/user-dashboard" style={{textDecoration: "underline"}}>To User Dashboard</Link>
       </div>
     </div>
   );
