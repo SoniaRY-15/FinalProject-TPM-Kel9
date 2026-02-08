@@ -1,25 +1,17 @@
 const db = require("../helpers/db");
 
-/**
- * Get all teams dengan leader, dengan search dan sort
- */
 const getAllTeamsWithLeader = async ({ search, sortBy, sortOrder }) => {
   const where = {};
-
-  // Filter berdasarkan search (case-insensitive)
   if (search) {
     where.name = {
       contains: search,
-      mode: "insensitive",
     };
   }
 
-  // Determine sort order
   const orderBy = {};
   if (sortBy === "name") {
     orderBy.name = sortOrder === "asc" ? "asc" : "desc";
   } else {
-    // Default sort by createdAt
     orderBy.createdAt = sortOrder === "asc" ? "asc" : "desc";
   }
 
@@ -32,9 +24,6 @@ const getAllTeamsWithLeader = async ({ search, sortBy, sortOrder }) => {
   });
 };
 
-/**
- * Get single team dengan leader-nya
- */
 const getTeamWithLeader = async (teamId) => {
   return db.team.findUnique({
     where: { id: teamId },
@@ -44,12 +33,7 @@ const getTeamWithLeader = async (teamId) => {
   });
 };
 
-/**
- * Update team dan/atau leader data
- * updateData bisa contain team fields atau leader fields
- */
 const updateTeam = async (teamId, updateData) => {
-  // Separate team data dan leader data
   const teamFields = ["name", "password", "type"];
   const leaderFields = [
     "fullName",
@@ -72,7 +56,6 @@ const updateTeam = async (teamId, updateData) => {
     }
   });
 
-  // Update team
   let updatedTeam = null;
   if (Object.keys(teamUpdate).length > 0) {
     updatedTeam = await db.team.update({
@@ -82,7 +65,6 @@ const updateTeam = async (teamId, updateData) => {
     });
   }
 
-  // Update leader
   if (Object.keys(leaderUpdate).length > 0) {
     updatedTeam = await db.team.update({
       where: { id: teamId },
@@ -95,7 +77,6 @@ const updateTeam = async (teamId, updateData) => {
     });
   }
 
-  // Jika tidak ada update, ambil data terbaru saja
   if (!updatedTeam) {
     updatedTeam = await db.team.findUnique({
       where: { id: teamId },
@@ -106,9 +87,6 @@ const updateTeam = async (teamId, updateData) => {
   return updatedTeam;
 };
 
-/**
- * Delete team (cascade delete leader juga)
- */
 const deleteTeam = async (teamId) => {
   return db.team.delete({
     where: { id: teamId },

@@ -8,7 +8,8 @@ export default function AdminPanel() {
   const [participants, setParticipants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchInput, setSearchInput] = useState(""); // For immediate UI feedback
+  const [searchTerm, setSearchTerm] = useState(""); // For actual search
   const [sortBy, setSortBy] = useState("createdAt");
   const [sortOrder, setSortOrder] = useState("desc");
 
@@ -82,17 +83,26 @@ export default function AdminPanel() {
     }
   };
 
-  // Fetch on mount and when filters change
+  // Debounce search - only fetch after user stops typing for 500ms
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(searchInput);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  // Fetch when searchTerm actually changes
   useEffect(() => {
     fetchParticipants(searchTerm, sortBy, sortOrder);
   }, [searchTerm, sortBy, sortOrder]);
 
-  const handleSearch = (value) => {
-    setSearchTerm(value);
-  };
+  // Fetch on mount
+  useEffect(() => {
+    fetchParticipants("", sortBy, sortOrder);
+  }, []);
 
   const handleEdit = (teamId) => {
-    // Navigate to editor with team ID
     navigate(`/editor/${teamId}`);
   };
 
@@ -121,7 +131,6 @@ export default function AdminPanel() {
         throw new Error(result.message || "Failed to delete team");
       }
 
-      // Refresh the list
       fetchParticipants(searchTerm, sortBy, sortOrder);
       alert("Team deleted successfully");
     } catch (err) {
@@ -193,8 +202,8 @@ export default function AdminPanel() {
             <input
               type="text"
               placeholder="Search"
-              value={searchTerm}
-              onChange={(e) => handleSearch(e.target.value)}
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
             />
 
             <svg className="ap-filter-icon" viewBox="0 0 24 24">
