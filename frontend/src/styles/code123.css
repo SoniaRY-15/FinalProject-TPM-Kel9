@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Zen+Kaku+Gothic+Antique&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Space Mono", monospace;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(#021618, #000D10);
+}
+
+.cd-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 120px;
+    padding-top: 30px;
+    color: white;
+}
+
+.cd-form-title {
+    font-size: 38px;
+    font-weight: 300;
+    align-self: flex-start;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+hr {
+    width: 92%;
+    border: none;
+    height: 1px;
+    background-color: white;
+    margin-bottom: 22px;
+}
+
+.cd-form2-title {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #32D9C0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 400;
+    letter-spacing: 2px;
+    justify-self: start;
+}
+
+.cd-form3-title {
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 16px;
+    font-family: "Google Sans Flex", sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    justify-self: start;
+}
+
+
+.cd-right-section .cd-form2-title {
+    color: white;
+}
+
+.cd-dashboard-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.cd-left-section {
+    width: 60%;
+}
+
+.cd-right-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+}
+
+.cd-info-grid {
+    display: flex;
+    gap: 150px;
+    margin-bottom: 20px;
+    font-family: "Google Sans Flex", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0%;
+}
+
+.cd-info-grid p {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #cfdcdc;
+    white-space: nowrap;
+    justify-self: start;
+}
+
+.cd-doc-wrapper {
+    display: flex;
+    gap: 16px;
+}
+
+.cd-doc-card {
+    max-width: 300px;
+    height: 140px;
+    background: #011A1F;
+    padding: 22px;
+    border-radius: 14px;
+    margin-top: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: 0.25s ease;
+    flex: 1;
+}
+
+.cd-doc-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cd-tl-section {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+    margin-top: 0;
+    padding-bottom: 10px;
+    color: white;
+    overflow-x: hidden;
+}
+
+.cd-tl {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cd-tl-line {
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 77%;
+    height: 3px;
+    background: linear-gradient(90deg, #003613, #00FF59, #003613);
+    box-shadow: 0 0 12px rgba(0, 255, 89, .6);
+
+}
+
+.cd-tl-item {
+    width: 22%;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cd-dot {
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: #28ff6a;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.cd-tl-item h3 {
+    margin-top: 0;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-family: "Google Sans Flex", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0%;
+
+}
+
+.cd-tl-item p {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #cfdcdc;
+}
+
+.cd-tl-title {
+    align-self: center;
+    text-align: center;
+}
+
+.cd-tl-item .cd-desc {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #9fb8b8;
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.cd-pdf-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.92);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.cd-pdf-modal {
+    width: 90%;
+    height: 90%;
+    position: relative;
+}
+
+.cd-pdf-modal iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    border: none;
+}
+
+.cd-close-btn {
+    margin-top: 18px;
+    padding: 10px 26px;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.cd-close-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.cd-pdf-modal {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}

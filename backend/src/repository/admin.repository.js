@@ -1,4 +1,4 @@
-const db = require("../../helpers/db");
+const db = require("../helpers/db");
 
 /**
  * Get all teams dengan leader, dengan search dan sort

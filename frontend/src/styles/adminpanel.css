@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Space Mono", monospace;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(#021618,#000D10);
+    color:white;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:24px 28px;
+    background:rgba(2,22,24,0.8);
+}
+
+.ap-logo{
+    font-size:19px;
+}
+
+.ap-nav-links{
+    display:flex;
+    gap:40px;
+    list-style:none;
+}
+
+.ap-nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.ap-signup-link{
+    display:inline-block;
+    font-size:20px;
+    color:#ffffff;
+    text-decoration:none;
+    position:relative;
+    padding-bottom:4px;
+}
+
+/* garis bawah */
+.ap-signup-link::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:3px;
+    background:#32D9C0;
+}
+
+/* ================= SECTION ================= */
+.ap-participants-section{
+    width:100%;
+    padding:0 32px;
+    margin-top:80px;
+}
+
+/* header */
+.ap-participants-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.ap-participants-title{
+    font-size:48px;
+    font-style:italic;
+    font-weight:400;
+}
+
+/* ================= SEARCH ================= */
+/* search container */
+.ap-search-wrapper{
+    width:684px;
+    height:50px;
+
+    background:#062428;
+    border-radius:16px 12px 16px 16px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:12px 16px;
+    margin-bottom:0;
+}
+
+/* input */
+.ap-search-wrapper input{
+    flex:1;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:#fff;
+    font-size:14px;
+}
+
+/* icon kiri */
+.ap-search-icon{
+    width:16px;
+    height:16px;
+}
+
+/* icon kanan */
+.ap-filter-icon{
+    width:16px;
+    height:16px;
+    cursor:pointer;
+}
+
+/* ================= TABLE ================= */
+.ap-table-header{
+    display:grid;
+    grid-template-columns:2fr 2fr 3fr 80px;
+    padding:16px 32px;
+    color:#9FB7B7;
+    border-bottom:1px solid rgba(255,255,255,0.2);
+    border-bottom:1px solid #fff
+}
+
+.ap-table-header div{
+    color:white;
+}
+
+.ap-participant-row{
+    width:100%;
+    padding:16px 32px;
+    display:grid;
+    grid-template-columns:2fr 2fr 3fr 80px;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+
+.ap-participants-table .ap-participant-row:nth-child(odd){
+    background:#021F24;
+}
+
+.ap-participants-table .ap-participant-row:nth-child(even){
+    background:#01171B;
+}
+
+.ap-participants-table{
+    position:relative;
+}
+
+/* garis kolom 1 */
+.ap-participants-table::before{
+    content:"";
+    position:absolute;
+    top:45px;          /* mulai setelah header */
+    bottom:0;
+    left:33.33%;
+    width:1px;
+    background:rgba(120,255,230,0.25);
+}
+
+/* garis kolom 2 */
+.ap-participants-table::after{
+    content:"";
+    position:absolute;
+    top:45px;
+    bottom:0;
+    left:66.66%;
+    width:1px;
+    background:rgba(120,255,230,0.25);
+}
+
+
+/* kolom */
+.ap-col{
+    color:white;
+    font-size:14px;
+    padding-right:20px;
+}
+
+.ap-action{
+    border-right:none;
+    display:flex;
+    justify-content:center;
+}
+
+.ap-edit-btn{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    border:none;
+    background:#7FE0CF;
+    cursor:pointer;
+    color: black;
+}
+

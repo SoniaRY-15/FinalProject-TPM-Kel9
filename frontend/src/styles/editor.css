@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&family=Space+Grotesk:wght@400;500&display=swap');
+
+body .ed-editor-page{
+    /* background:#011A1F; */
+    color:#E4ECEF;
+    font-family:'Space Mono', monospace;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:40px;
+}
+
+/* TITLES */
+.ed-editor-title{
+    font-style:italic;
+    font-size:32px;
+    margin-bottom:5px;
+}
+
+.ed-team-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    font-weight:400;
+    color:#57D7B1;
+    margin-bottom:30px;
+}
+
+/* TABLE */
+.ed-editor-table{
+    border-collapse:collapse;
+    width:100%;
+    max-width:1000px;
+    font-family:'Space Grotesk', sans-serif;
+}
+
+/* header separator */
+.ed-editor-table thead tr{
+    border-bottom:2px solid rgba(255,255,255,0.7);
+}
+
+/* HEADER CELLS — ONE LINE */
+.ed-editor-table th{
+    padding:12px 20px;
+    text-align:left;
+    font-weight:500;
+    color:#E4ECEF;
+    border:none;
+    white-space:nowrap;
+}
+
+/* BODY CELLS */
+.ed-editor-table td{
+    padding:12px 20px;
+    font-size:14px;
+    color:#E4ECEF;
+    border:none;
+    vertical-align:top;
+}
+
+/* NEVER WRAP ANY DATA COLUMN */
+.ed-editor-table td:nth-child(1), /* Participant Name */
+.ed-editor-table td:nth-child(2), /* Birth Place */
+.ed-editor-table td:nth-child(3), /* Birth Date */
+.ed-editor-table td:nth-child(4), /* Phone Number */
+.ed-editor-table td:nth-child(5), /* Email */
+.ed-editor-table td:nth-child(6), /* Line ID */
+.ed-editor-table td:nth-child(7){ /* Github ID */
+    white-space:nowrap;
+}
+
+/* vertical grid ONLY in body */
+.ed-editor-table td:not(:last-child){
+    border-right:1px solid rgba(120,255,230,0.35);
+}
+
+/* subtle row shading */
+.ed-editor-table tbody tr:nth-child(odd){
+    background:rgba(255,255,255,0.02);
+}
+
+/* BUTTONS */
+.ed-bottom-actions{
+    width:100%;
+    max-width:1000px;
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.ed-button{
+    background:none;
+    border:none;
+    font-family:'Space Grotesk', sans-serif;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.ed-cancel-btn{
+    color:#fff;
+    border-bottom:2px solid #FF8484;
+}
+
+.ed-save-btn{
+    color:#fff;
+    border-bottom:2px solid #57D7B1;
+}

@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const adminService = require("../admin/service/admin.service");
+const adminService = require("../service/admin.service");
 const { success, fail } = require("../utils/response");
 
 /**

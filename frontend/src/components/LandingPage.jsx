@@ -149,8 +149,7 @@ export default function LandingPage({ onNavigateToRegister }) {
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">
-            {landingData.hero?.eventName || "Hackathon '25"}{" "}
-            <em className="em1">'</em>
+            {" Hackathon "}<em className="em1">'</em>25
           </h1>
           <div className="hero-tagline">
             <p style={{ marginLeft: "-35px" }}>

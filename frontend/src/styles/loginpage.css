@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Zen+Kaku+Gothic+Antique&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Space Mono", monospace;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(#021618, #000D10);
+}
+
+.lp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 64px 32px;
+    padding-top: 120px;
+}
+
+
+.lp-form-title {
+    font-size: 40px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+   
+}
+
+.lp-input-group {
+    margin-bottom: 15px;
+    width: 700px;
+}
+.lp-input-wrapper input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+
+    background: rgba(2, 22, 24, 0.9);
+    border: none;
+    border-radius: 8px;
+
+    color: #cfffff;
+    font-size: 14px;
+
+    outline: none;
+}
+
+input[type="text"],
+input[type="password"]{
+    width: 100%;
+    padding: 13px 12px;
+    border-bottom: 1px solid #2a4a4a;
+    color: #7a9a9a;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    -webkit-appearance: none;
+    appearance: none;   
+}
+
+input:focus {
+    outline: none;
+}
+
+input::placeholder {
+    color: #a0a0a0;
+}
+
+/* wrapper panah */
+.lp-select-wrapper {
+    position: relative;
+}
+
+/* Panah nya ini biar bisa kebawah */
+.lp-select-wrapper::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+
+    width: 8px;
+    height: 8px;
+
+    border-right: 2px solid #cfffff;
+    border-bottom: 2px solid #cfffff;
+
+    pointer-events: none;
+}
+
+.lp-form-step {
+  display: none;
+}
+
+.lp-form-step.active {
+  display: flex;
+}
+
+.lp-button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.lp-login-btn {
+  width: 94px;
+  height: 44px;
+
+  background: none;
+  border: none;
+
+  position: relative;
+
+  color: white;
+  font-family: "Space Mono", monospace;
+  font-size: 24px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  opacity: 1;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* garis bawah */
+.lp-login-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 94px;
+  height: 3px;
+  background: #32D9C0;
+}
+
+.lp-login-btn:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(50, 217, 192, 0.5);
+}
+
+.lp-login-btn:active {
+  transform: translateY(0);
+}
+
+/* Don’t have an account? */
+.lp-signup-wrapper {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;   /* jarak antar teks */
+}
+
+.lp-signup-text {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.lp-signup-link {
+  display: inline-block;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* garis bawah Register now */
+.lp-signup-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;   /* ini bikin garis mengikuti panjang teks */
+  height: 3px;
+  background: #32D9C0;
+}
