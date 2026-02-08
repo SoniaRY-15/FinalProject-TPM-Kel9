@@ -85,7 +85,7 @@ npm run dev
 ```
 
 
-#Setup myqsl
+# Setup myqsl
 
 ## Database Setup
 1. Download and install [XAMPP](https://www.apachefriends.org/index.html).
@@ -97,4 +97,5 @@ npm run dev
 3. Import the SQL file (if provided) to set up the database schema and initial data.
 
 and then you can npx prisma migrate dev or npx prisma migrate deploy
+
 
