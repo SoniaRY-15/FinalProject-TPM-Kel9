@@ -1,4 +1,6 @@
-# FinalProject-TPM-Kel9 — Landing page (back-end)
+# FinalProject-TPM-Kel9
+
+
 
 Quick start
 
@@ -81,3 +83,18 @@ npm run dev
 # open:
 # http://localhost:5173
 ```
+
+
+#Setup myqsl
+
+## Database Setup
+1. Download and install [XAMPP](https://www.apachefriends.org/index.html).
+2. Launch XAMPP Control Panel and start the Apache and MySQL services.
+
+## XAMPP/MySQL Instructions
+1. Open your web browser and navigate to `http://localhost/phpmyadmin`.
+2. Create a new database (e.g., `final_project_db`).
+3. Import the SQL file (if provided) to set up the database schema and initial data.
+
+and then you can npx prisma migrate dev or npx prisma migrate deploy
+
