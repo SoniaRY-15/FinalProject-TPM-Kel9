@@ -1,4 +1,6 @@
-# FinalProject-TPM-Kel9 — Landing page (back-end)
+# FinalProject-TPM-Kel9
+
+
 
 Quick start
 
@@ -8,6 +10,7 @@ cd FinalProject-TPM-Kel9/backend
 npm install
 npm install prisma@5.10 @prisma/client@5.10
 npx prisma migrate dev
+npx prisma generate
 npm run dev
 # open:
 # http://localhost:3000/api/landing
@@ -81,3 +84,24 @@ npm run dev
 # open:
 # http://localhost:5173
 ```
+
+
+# Setup myqsl
+
+## Database Setup
+1. Download and install [XAMPP](https://www.apachefriends.org/index.html).
+2. Launch XAMPP Control Panel and start the Apache and MySQL services.
+
+## XAMPP/MySQL Instructions
+1. Open your web browser and navigate to `http://localhost/phpmyadmin`.
+2. Create a new database (e.g., `final_project_db`).
+3. Import the SQL file (if provided) to set up the database schema and initial data.
+
+in your env, update the Database URL to: 
+- DATABASE_URL="mysql://root:@localhost:3306/final_project_db" (or whatever your database name is)
+
+and then you can npx prisma generate
+
+
+
+
