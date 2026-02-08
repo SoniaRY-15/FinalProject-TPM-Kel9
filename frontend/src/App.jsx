@@ -15,15 +15,55 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<> <Navbar /> <LandingPage /> </>}/>
-        <Route path="/register" element={<Stage1 />}/>
-        <Route path="/register/stage2" element={<Stage2 />}/>
-        <Route path="/register/stage3" element={<Stage3 />}/>
-        <Route path="/register/complete" element={<RegistrationComplete />}/>
-        <Route path="/user-dashboard" element={<><Navbar /><UserDashboard/></>}/>
-        <Route path="/admin" element={<><Navbar /><AdminPanel/></>}/>
-        <Route path="/login" element={<><Navbar /><LoginPage/></>}/>
-        <Route path="/editor" element={<Editor/>}/>
+        <Route
+          path="/"
+          element={
+            <>
+              {" "}
+              <Navbar /> <LandingPage />{" "}
+            </>
+          }
+        />
+        <Route path="/register" element={<Stage1 />} />
+        <Route path="/register/stage2" element={<Stage2 />} />
+        <Route path="/register/stage3" element={<Stage3 />} />
+        <Route path="/register/complete" element={<RegistrationComplete />} />
+        <Route
+          path="/user-dashboard"
+          element={
+            <>
+              <Navbar />
+              <UserDashboard />
+            </>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <>
+              <Navbar />
+              <AdminPanel />
+            </>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <>
+              <Navbar />
+              <LoginPage />
+            </>
+          }
+        />
+        <Route
+          path="/editor/:teamId"
+          element={
+            <>
+              <Navbar />
+              <Editor />
+            </>
+          }
+        />
       </Routes>
     </Router>
   );

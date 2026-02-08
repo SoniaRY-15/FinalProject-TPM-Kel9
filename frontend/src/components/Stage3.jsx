@@ -74,12 +74,12 @@ export default function Stage3() {
         return;
       }
 
-      // Clear localStorage after successful registration
-      localStorage.removeItem("token");
+      // Clear only registration-specific data, KEEP the token
       localStorage.removeItem("teamId");
       localStorage.removeItem("teamType");
       localStorage.removeItem("leaderData");
 
+      // Token stays so user can access dashboard directly
       navigate("/register/complete");
     } catch (err) {
       setError(err.message || "Network error");
