@@ -10,6 +10,7 @@ cd FinalProject-TPM-Kel9/backend
 npm install
 npm install prisma@5.10 @prisma/client@5.10
 npx prisma migrate dev
+npx prisma generate
 npm run dev
 # open:
 # http://localhost:3000/api/landing
@@ -99,7 +100,8 @@ npm run dev
 in your env, update the Database URL to: 
 - DATABASE_URL="mysql://root:@localhost:3306/final_project_db" (or whatever your database name is)
 
-and then you can npx prisma migrate dev or npx prisma migrate deploy
+and then you can npx prisma generate
+
 
 
 
