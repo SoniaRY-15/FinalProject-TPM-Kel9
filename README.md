@@ -96,6 +96,10 @@ npm run dev
 2. Create a new database (e.g., `final_project_db`).
 3. Import the SQL file (if provided) to set up the database schema and initial data.
 
+in your env, update the Database URL to: 
+- DATABASE_URL="mysql://root:@localhost:3306/final_project_db" (or whatever your database name is)
+
 and then you can npx prisma migrate dev or npx prisma migrate deploy
+
 
 
